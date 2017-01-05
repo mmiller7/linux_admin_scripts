@@ -1,0 +1,7 @@
+#!/bin/bash
+# Created by: Matthew Miller
+# 09OCT2015
+# Prints fail2ban repeat-offender ban/unban count and IP
+
+ipList=`list_iptables_reject | tr '\n' '|' | sed 's/|$//g'`
+egrep "$ipList" /var/log/messages* | egrep 'Unban|Ban' | grep recidive | awk '{print $9 " " $8}' | sort | uniq -c
