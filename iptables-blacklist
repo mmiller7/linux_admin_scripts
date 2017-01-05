@@ -1,9 +1,18 @@
 #!/bin/bash
 # Created by: Matthew Miller
 # 25OCT2015
-# Prints fail2ban log entries for rules and IPs matched
+# Adds IP to iptables blacklist
 
 # NOTE: requires a iptables chain called "blacklist"
+# Example: /etc/sysconfig/iptables
+# *filter
+# :INPUT ACCEPT [0:0]
+# :FORWARD ACCEPT [0:0]
+# :OUTPUT ACCEPT [0:0]
+# :blacklist - [0:0]
+# -A INPUT -j blacklist
+
+
 
 for i in $@
 do
