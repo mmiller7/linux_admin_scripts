@@ -1,0 +1,6 @@
+#!/bin/bash
+# Created by: Matthew Miller
+# 07SEPT2015
+# Prints fail2ban log entries for rules and IPs matched
+
+egrep "fail2ban\.filter\[[0-9]+\]: INFO \[[^]]+\] Found" /var/log/messages
