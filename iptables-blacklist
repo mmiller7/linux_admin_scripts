@@ -1,0 +1,16 @@
+#!/bin/bash
+# Created by: Matthew Miller
+# 25OCT2015
+# Prints fail2ban log entries for rules and IPs matched
+
+# NOTE: requires a iptables chain called "blacklist"
+
+for i in $@
+do
+        IP="$i"
+        echo "Blacklisting $IP"
+        iptables -A blacklist -s $IP -j DROP
+done
+
+echo ''
+service iptables save
