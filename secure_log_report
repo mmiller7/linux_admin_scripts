@@ -1,0 +1,6 @@
+#!/bin/bash
+# Created by: Matthew Miller
+# 25FEB2015
+# Prints logs 'secure' log summary for count of failed SSH login/IP
+
+grep sshd /var/log/secure | grep Failed | awk '{if (NF == 14) {print $9 " " $11} else {print $11 " " $13}}' | sort | uniq -c
