@@ -1,0 +1,27 @@
+#!/bin/bash
+# This script is for automating Raspberry Pi initial setup
+#
+# Script should be saved in /root/custom_setup
+# remember to make it executable
+# and put /root/custom_setup in /etc/rc.local before exit
+
+new_hostname="new_pi"
+new_username="matthew"
+
+echo "Changing hostname to $new_hostname . . ."
+echo $new_hostname > /etc/hostname
+
+echo "Changing username to $new_username . . ."
+usermod -l $new_username pi
+echo "Changing home folder to /home/$new_username . . ."
+usermod -d /home/$new_username -m $new_username
+
+echo "Enabling SSH . . ."
+update-rc.d ssh defaults
+update-rc.d ssh enable
+
+echo "Removing from rc.local . . ."
+sed -i 's|/root/custom_setup||g' /etc/rc.local
+
+echo "Rebooting."
+init 6
