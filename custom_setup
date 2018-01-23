@@ -4,6 +4,9 @@
 # Script should be saved in /root/custom_setup
 # remember to make it executable
 # and put /root/custom_setup in /etc/rc.local before exit
+#
+# NOTE - the password remains UNCHANGED and will still
+#        be the default for the image you installed.
 
 new_hostname="new_pi"
 new_username="matthew"
