@@ -1,2 +1,6 @@
 #!/bin/bash
+# Created by: Matthew Miller
+# 07SEPT2015
+# Prints list of IPs that are rejected by iptables rules
+
 iptables -nL | grep REJECT | awk '{ print $4 }' | egrep '([0-9]{1,3}\.){3}[0-9]{1,3}'
