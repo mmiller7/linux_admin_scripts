@@ -1,0 +1,29 @@
+#!/bin/bash
+# This script is for automating Raspberry Pi initial setup
+#
+# Script should be saved in /root/custom_setup
+# remember to make it executable
+# and put @reboot root /root/custom_setup_ubuntu in /etc/cron.d/custom_setup_ubuntu
+#
+# NOTE - the password remains UNCHANGED and will still
+#        be the default for the image you installed.
+
+new_hostname="new_pi"
+new_username="matthew"
+new_groupname=$new_username
+
+echo "Changing hostname to $new_hostname . . ."
+echo $new_hostname > /etc/hostname
+
+echo "Changing username to $new_username . . ."
+usermod -l $new_username ubuntu
+echo "Changing groupname to $new_groupname . . ."
+groupmod --new-name $new_groupname ubuntu
+echo "Changing home folder to /home/$new_username . . ."
+usermod -d /home/$new_username -m $new_username
+
+echo "Removing from rc.local . . ."
+rm /etc/cron.d/custom_setup_ubuntu
+
+echo "Rebooting."
+init 6
