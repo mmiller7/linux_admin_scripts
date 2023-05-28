@@ -21,7 +21,7 @@ groupmod --new-name $new_groupname ubuntu
 echo "Changing home folder to /home/$new_username . . ."
 usermod -d /home/$new_username -m $new_username
 echo "Changing password to $new_password . . ."
-echo "${new_username}:${new_password}" | chpassword
+echo "${new_username}:${new_password}" | chpasswd
 
 echo "Removing from rc.local . . ."
 rm /etc/cron.d/custom_setup_ubuntu
