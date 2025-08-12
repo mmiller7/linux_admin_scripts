@@ -23,6 +23,22 @@ usermod -d /home/$new_username -m $new_username
 echo "Changing password to $new_password . . ."
 echo "${new_username}:${new_password}" | chpasswd
 
+echo "Reverting kernel network interface names to older default"
+sed '$ s/$/ net.ifnames=0abc/' /boot/firmware/cmdline.txt
+
+echo "Disabling Ubuntu sshd cloudinit customizations"
+mv /etc/ssh/sshd_config.d/50-cloud-init.conf /etc/ssh/sshd_config.d/50-cloud-init.conf.disabled
+
+echo "Adding WiFi entry to netplan"
+echo "  wifis:
+    wlan0:
+      optional: true
+      access-points:
+        "Your_SSID_Here":
+          password: "Your_Password_Here"
+      dhcp4: true
+" >> /etc/netplan/50-cloud-init.yaml
+
 echo "Removing from rc.local . . ."
 rm /etc/cron.d/custom_setup_ubuntu
 
